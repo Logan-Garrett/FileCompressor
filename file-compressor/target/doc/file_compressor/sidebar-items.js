@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["main"]};
+window.SIDEBAR_ITEMS = {"fn":["main","read_file_to_bits","read_file_to_bytes","read_file_to_string"]};
