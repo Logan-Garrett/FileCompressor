@@ -3,6 +3,14 @@ use std::fs;
 use std::fs::File;
 use std::io::{BufReader, Read};
 
+/*
+fn even_gcd(int a, int b) -> int {
+    let result = min(a, b);
+    while result > 0 {
+
+    }
+} */
+
 fn read_file_to_string(path: &str) {
     let contents = fs::read_to_string(path)
         .expect("Couldn't Read File.");
@@ -13,7 +21,8 @@ fn read_file_to_string(path: &str) {
 fn read_file_to_bytes(path: &str) {
     // let mut odd_gcd = 0;
     // let mut even_gcd = 0;
-    let mut byte_list: Vec<u8> = Vec::new();
+    let mut even_byte_list: Vec<u8> = Vec::new();
+    let mut odd_byte_list: Vec<u8> = Vec::new();
     if let Ok(f) = File::open(path) {
         let mut reader = BufReader::new(f);
         let mut buffer = Vec::new();
@@ -21,7 +30,12 @@ fn read_file_to_bytes(path: &str) {
         if let Ok(_) = reader.read_to_end(&mut buffer) {
             for byte in &buffer {
                 // println!("BYTE: {}", byte);
-                byte_list.push(*(byte))
+                if byte % 2 == 0 {
+                    even_byte_list.push(*(byte));
+                }
+                if byte % 2 != 0 {
+                    odd_byte_list.push(*(byte));
+                }
             }
         } else {
             eprintln!("Error reading file: {}", path);
@@ -30,7 +44,8 @@ fn read_file_to_bytes(path: &str) {
         eprintln!("Error opening file: {}", path);
     }
     // println!("Highest Odd GCD {} | Highest Even GCD {}", highest_odd_gcd, highest_even_gcd)
-    println!("{:?}", byte_list)
+    println!("{:?}", odd_byte_list);
+    println!("{:?}", even_byte_list);
 }
 
 /* 
