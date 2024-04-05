@@ -11,37 +11,17 @@ fn read_file_to_string(path: &str) {
 }
 
 fn read_file_to_bytes(path: &str) {
-    let mut odd_gcd = 0;
-    let mut highest_odd_gcd = 0;
-    let mut even_gcd = 0;
-    let mut highest_even_gcd = 0;
+    // let mut odd_gcd = 0;
+    // let mut even_gcd = 0;
+    let mut byte_list: Vec<u8> = Vec::new();
     if let Ok(f) = File::open(path) {
         let mut reader = BufReader::new(f);
         let mut buffer = Vec::new();
 
         if let Ok(_) = reader.read_to_end(&mut buffer) {
             for byte in &buffer {
-                for number in 2..127 {
-                    if byte % 2 == 0 {
-                        if byte / number == 0 {
-                            let even_gcd: u8 = *(byte);
-                            if even_gcd % number != 0 {
-                                highest_even_gcd = number;
-                                // println!("BYTE: {} | Even {}", byte, number);
-                            }
-                        }
-                    }
-                    if byte % 2 != 0 {
-                        if byte / number != 0 {
-                            let odd_gcd: u8 = *(byte);
-                            if odd_gcd % number == 0 {
-                                highest_odd_gcd = number;
-                                // println!("BYTE: {} | Odd {}", byte, number);
-                            }
-                        }
-                    }
-                }
                 // println!("BYTE: {}", byte);
+                byte_list.push(*(byte))
             }
         } else {
             eprintln!("Error reading file: {}", path);
@@ -49,9 +29,11 @@ fn read_file_to_bytes(path: &str) {
     } else {
         eprintln!("Error opening file: {}", path);
     }
-    println!("Highest Odd GCD {} | Highest Even GCD {}", highest_odd_gcd, highest_even_gcd)
+    // println!("Highest Odd GCD {} | Highest Even GCD {}", highest_odd_gcd, highest_even_gcd)
+    println!("{:?}", byte_list)
 }
 
+/* 
 fn read_file_to_bits(path: &str) {
     if let Ok(f) = File::open(path) {
         let mut reader = BufReader::new(f);
@@ -71,6 +53,7 @@ fn read_file_to_bits(path: &str) {
         eprintln!("Error opening file: {}", path);
     }
 }
+*/
 
 fn main() {
     println!("Hello, world!");
